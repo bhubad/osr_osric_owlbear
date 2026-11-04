@@ -1,0 +1,106 @@
+{
+ "source": "1st Edition / OSRIC Automated Charactersheet v2.2 by FlacoAlto",
+ "sourceUrl": "https://flacoalto.itch.io/1st-edition-osric-automated-charactersheet",
+ "pages": [
+  {
+   "id": "opt",
+   "title": "Character Options/Assumptions",
+   "w": 1719,
+   "h": 878
+  },
+  {
+   "id": "cs",
+   "title": "Character Sheet",
+   "w": 1905,
+   "h": 1509
+  },
+  {
+   "id": "cleric",
+   "title": "Cleric",
+   "w": 838,
+   "h": 1260
+  },
+  {
+   "id": "druid",
+   "title": "Druid",
+   "w": 817,
+   "h": 1266
+  },
+  {
+   "id": "fighter",
+   "title": "Fighter",
+   "w": 836,
+   "h": 883
+  },
+  {
+   "id": "ranger",
+   "title": "Ranger",
+   "w": 836,
+   "h": 1366
+  },
+  {
+   "id": "paladin",
+   "title": "Paladin",
+   "w": 836,
+   "h": 1089
+  },
+  {
+   "id": "mu",
+   "title": "MU",
+   "w": 1577,
+   "h": 1033
+  },
+  {
+   "id": "ill",
+   "title": "Ill",
+   "w": 1577,
+   "h": 1054
+  },
+  {
+   "id": "thief",
+   "title": "Thief",
+   "w": 817,
+   "h": 1222
+  },
+  {
+   "id": "assassin",
+   "title": "Assassin",
+   "w": 817,
+   "h": 1348
+  },
+  {
+   "id": "monk",
+   "title": "Monk",
+   "w": 836,
+   "h": 1534
+  },
+  {
+   "id": "bard",
+   "title": "Bard",
+   "w": 817,
+   "h": 1022
+  },
+  {
+   "id": "hire",
+   "title": "Hirelings",
+   "w": 1735,
+   "h": 10270
+  },
+  {
+   "id": "license",
+   "title": "License"
+  },
+  {
+   "id": "twoweapon",
+   "title": "2-Weapon",
+   "w": 983,
+   "h": 360
+  },
+  {
+   "id": "weaponless",
+   "title": "Weaponless",
+   "w": 1958,
+   "h": 1768
+  }
+ ]
+}
