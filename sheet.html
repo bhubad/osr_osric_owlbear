@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSRIC Character Sheet</title>
+<script>
+  // Owlbear Rodeo sends its "ready" message as soon as this frame loads, which can be before the
+  // SDK has finished downloading. Keep the message so js/common.js can replay it.
+  window.__obrMessages = [];
+  window.addEventListener("message", function (e) {
+    if (e && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
+  });
+</script>
+<link rel="stylesheet" href="css/sheet.css">
+<script type="module" src="js/sheet.js"></script>
+</head>
+<body>
+<header class="bar">
+  <div class="who"><span id="title">Character sheet</span><span id="status" data-kind="ok"></span></div>
+  <div class="tools">
+    <button id="pagesbtn" type="button" title="Choose which pages (tabs) this character uses">Pages</button>
+    <div class="zoom" role="group" aria-label="Zoom">
+      <button id="zoomout" type="button" title="Zoom out" aria-label="Zoom out">−</button>
+      <button id="zoomval" type="button" title="Switch between fit-to-width and 100%">Fit</button>
+      <button id="zoomin" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+    </div>
+    <div class="menuwrap">
+      <button id="menubtn" type="button" title="More" aria-label="More">⋯</button>
+      <div id="menu" class="menu" hidden>
+        <button type="button" data-act="export">Export…</button>
+        <button type="button" data-act="import">Import…</button>
+        <button type="button" data-act="clear">Clear sheet…</button>
+        <button type="button" data-act="about">About</button>
+      </div>
+    </div>
+    <button id="sizebtn" type="button" hidden>◨ Half</button>
+    <button id="closebtn" type="button" title="Close the sheet (Esc)" aria-label="Close" hidden>✕</button>
+  </div>
+</header>
+<div id="banner" hidden></div>
+<main id="scroller"></main>
+<nav id="tabs" class="tabs" aria-label="Pages"></nav>
+<dialog id="dialog"></dialog>
+</body>
+</html>

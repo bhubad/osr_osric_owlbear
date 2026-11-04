@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSRIC Character Sheet for Owlbear Rodeo</title>
+<style>
+  :root { --bg: #f4f5f8; --card: #ffffff; --text: #1d1f27; --muted: #5d6170; --line: #dcdfe6; --accent: #6b47d6; --warn: #fff4d6; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #1e2231; --card: #2b2f40; --text: #f3f4f8; --muted: #b4b8c6; --line: #3c4154; --accent: #bb99ff; --warn: #4a3f1c; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 6px; }
+  h2 { font-size: 17px; margin: 28px 0 8px; }
+  p, li { color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-top: 14px; }
+  code, pre { font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .url { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .url code { flex: 1 1 280px; padding: 8px 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; word-break: break-all; color: var(--text); }
+  button, a.btn { font: inherit; padding: 7px 14px; border-radius: 8px; border: 1px solid transparent; background: var(--accent); color: #111; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+  .warn { background: var(--warn); border-color: transparent; }
+  .warn p, .warn li { color: var(--text); }
+  pre { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; overflow: auto; color: var(--text); }
+  ol { padding-left: 20px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>OSRIC Character Sheet</h1>
+  <p>An Owlbear Rodeo extension that shows an editable character sheet for any character token, laid out like the
+    <a href="https://flacoalto.itch.io/1st-edition-osric-automated-charactersheet">1st Edition / OSRIC Automated Charactersheet</a> by FlacoAlto, without its formulas or dropdowns.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0">Add it to Owlbear Rodeo</h2>
+    <ol>
+      <li>In your Owlbear Rodeo profile, click <b>Add Extension</b> and paste this install link:</li>
+    </ol>
+    <div class="url"><code id="manifestUrl"></code><button type="button" id="copy">Copy</button></div>
+    <ol start="2">
+      <li>Turn it on for a room: select it when you create a new room, or open an existing room and add it from the extension menu.</li>
+      <li>In the room, right-click a character token → <b>OSRIC Character Sheet</b>. The extension's button at the top left lists every sheet in the scene.</li>
+    </ol>
+    <p id="check"></p>
+  </div>
+
+  <div class="card warn" id="subpath" hidden>
+    <h2 style="margin-top:0">One edit needed for this address</h2>
+    <p>This site lives in a sub-folder (<code id="base"></code>), but <code>manifest.json</code> points to files at the root of the domain.
+      Replace the contents of <code>manifest.json</code> with this and upload it again:</p>
+    <pre id="fixed"></pre>
+  </div>
+
+  <p><a class="btn" href="sheet.html">Preview the sheet</a> &nbsp;<span style="color:var(--muted)">(outside Owlbear, values are kept in your browser only)</span></p>
+</main>
+<script>
+  (function () {
+    var base = location.href.replace(/[?#].*$/, "").replace(/[^/]*$/, "");
+    var manifest = base + "manifest.json";
+    document.getElementById("manifestUrl").textContent = manifest;
+    document.getElementById("copy").addEventListener("click", function (e) {
+      var done = function (ok) { e.target.textContent = ok ? "Copied" : "Select and copy"; };
+      if (navigator.clipboard) navigator.clipboard.writeText(manifest).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+    var path = new URL(base).pathname;
+    fetch("manifest.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (m) {
+      var check = document.getElementById("check");
+      check.textContent = "✓ manifest.json found (" + m.name + " " + m.version + ").";
+      if (path !== "/" && m.action && m.action.popover && m.action.popover.indexOf(path) !== 0) {
+        var fix = JSON.parse(JSON.stringify(m));
+        var p = function (s) { return s && s.charAt(0) === "/" ? path + s.slice(1) : s; };
+        fix.icon = p(fix.icon); fix.background_url = p(fix.background_url);
+        fix.action.icon = p(fix.action.icon); fix.action.popover = p(fix.action.popover);
+        document.getElementById("base").textContent = path;
+        document.getElementById("fixed").textContent = JSON.stringify(fix, null, 2);
+        document.getElementById("subpath").hidden = false;
+      }
+    }).catch(function () {
+      document.getElementById("check").textContent = "manifest.json could not be read from this site.";
+    });
+  })();
+</script>
+</body>
+</html>

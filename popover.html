@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSRIC Character Sheets</title>
+<script>
+  window.__obrMessages = [];
+  window.addEventListener("message", function (e) {
+    if (e && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
+  });
+</script>
+<link rel="stylesheet" href="css/popover.css">
+<script type="module" src="js/popover.js"></script>
+</head>
+<body>
+<header>
+  <h1>OSRIC Character Sheets</h1>
+  <p class="hint">Right-click a character token and choose <b>OSRIC Character Sheet</b>, or pick one here.</p>
+</header>
+<div id="selected"></div>
+<section>
+  <h2>Sheets in this scene</h2>
+  <ul id="withSheet" class="list"><li class="empty">Loading…</li></ul>
+</section>
+<details id="othersBox">
+  <summary>Character tokens without a sheet (<span id="otherCount">0</span>)</summary>
+  <ul id="withoutSheet" class="list"></ul>
+</details>
+<p class="foot" id="foot"></p>
+</body>
+</html>
