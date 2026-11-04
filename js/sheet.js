@@ -1,9 +1,9 @@
 // OSRIC character sheet: renders the spreadsheet-like pages and keeps the values in the token's metadata.
 import {
-  KEY, POPOVER_ID, FORMAT, FORMAT_VERSION, inOwlbear, loadOBR, whenReady, whenSceneReady,
+  KEY, POPOVER_ID, FORMAT, FORMAT_VERSION, VERSION, inOwlbear, loadOBR, whenReady, whenSceneReady,
   store, applyTheme, emptySheet, sheetStats, characterName, esc,
-} from "./common.js";
-import { readWorkbook } from "./xlsx-import.js";
+} from "./common.js?v=1.0.2";
+import { readWorkbook } from "./xlsx-import.js?v=1.0.2";
 
 const params = new URLSearchParams(location.search);
 const IN_OBR = inOwlbear() || !!window.__OBR_MOCK__;
@@ -272,7 +272,7 @@ function styleRule(pid, i, st) {
 }
 
 async function fetchJSON(path) {
-  const res = await fetch(new URL(path, location.href));
+  const res = await fetch(new URL(`${path}?v=${VERSION}`, location.href));
   if (!res.ok) throw new Error(`${path}: ${res.status}`);
   return res.json();
 }
@@ -1126,7 +1126,13 @@ async function bootOBR() {
     return false;
   }
   app.OBR = OBR;
-  await whenReady(OBR);
+  try {
+    await whenReady(OBR);
+  } catch (err) {
+    banner("Owlbear Rodeo didn't answer, so this sheet can't load or save. Close the sheet and open it again.", "error");
+    setStatus("error", "Not connected");
+    return false;
+  }
   try {
     applyTheme(await OBR.theme.getTheme());
     OBR.theme.onChange(applyTheme);
@@ -1172,6 +1178,7 @@ function bootStandalone() {
 }
 
 async function boot() {
+  if (IN_OBR) loadOBR().catch(() => {}); // start downloading the SDK straight away
   applyTheme(null);
   bindToolbar();
   try {

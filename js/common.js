@@ -6,6 +6,7 @@ export const POPOVER_ID = `${EXT_ID}/sheet-popover`;
 export const MENU_ID = `${EXT_ID}/context-menu`;
 export const FORMAT = "osric-character-sheet";
 export const FORMAT_VERSION = 1;
+export const VERSION = "1.0.2"; // also used in the ?v= of every file reference, so updates are not mixed with cached files
 
 // The Owlbear Rodeo SDK (MIT licence), loaded as an ES module from a CDN, with a fallback.
 const SDK_URLS = [
@@ -54,7 +55,11 @@ export function loadOBR() {
 
 function replayReady(OBR) {
   if (OBR.isReady) return;
-  for (const m of window.__obrMessages || []) {
+  // Take a copy and replay only the latest message. The inline buffer ignores these synthetic
+  // events (they are not "trusted"), so replaying can never feed itself.
+  const last = (window.__obrMessages || []).slice(-1);
+  window.__obrMessages = [];
+  for (const m of last) {
     try {
       window.dispatchEvent(new MessageEvent("message", { data: m.data, origin: m.origin }));
     } catch (_) {
@@ -63,10 +68,15 @@ function replayReady(OBR) {
   }
 }
 
-export function whenReady(OBR) {
-  return new Promise((resolve) => {
-    if (OBR.isReady) resolve();
-    else OBR.onReady(() => resolve());
+/** Resolve when the SDK is connected to Owlbear; reject after `ms` milliseconds. */
+export function whenReady(OBR, ms = 20000) {
+  return new Promise((resolve, reject) => {
+    if (OBR.isReady) return resolve();
+    const timer = setTimeout(() => reject(new Error("Owlbear Rodeo did not answer")), ms);
+    OBR.onReady(() => {
+      clearTimeout(timer);
+      resolve();
+    });
   });
 }
 

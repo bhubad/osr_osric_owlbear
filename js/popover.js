@@ -1,5 +1,5 @@
 // Toolbar popover: lists the character tokens in the scene and opens their sheets.
-import { KEY, loadOBR, whenReady, whenSceneReady, openSheet, applyTheme, characterName, sheetStats, esc, inOwlbear, extUrl } from "./common.js";
+import { KEY, loadOBR, whenReady, whenSceneReady, openSheet, applyTheme, characterName, sheetStats, esc, inOwlbear, extUrl } from "./common.js?v=1.0.2";
 
 const $ = (id) => document.getElementById(id);
 
@@ -68,7 +68,12 @@ async function main() {
     $("withSheet").innerHTML = `<li class="empty">Could not load the Owlbear Rodeo SDK. Check your internet connection.</li>`;
     return;
   }
-  await whenReady(OBR);
+  try {
+    await whenReady(OBR);
+  } catch (_) {
+    $("withSheet").innerHTML = `<li class="empty">Owlbear Rodeo didn't answer. Close this panel and open it again.</li>`;
+    return;
+  }
   try {
     applyTheme(await OBR.theme.getTheme());
     OBR.theme.onChange(applyTheme);

@@ -9,11 +9,11 @@
   // SDK has finished downloading. Keep the message so js/common.js can replay it.
   window.__obrMessages = [];
   window.addEventListener("message", function (e) {
-    if (e && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
+    if (e && e.isTrusted && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
   });
 </script>
-<link rel="stylesheet" href="css/sheet.css">
-<script type="module" src="js/sheet.js"></script>
+<link rel="stylesheet" href="css/sheet.css?v=1.0.2">
+<script type="module" src="js/sheet.js?v=1.0.2"></script>
 </head>
 <body>
 <header class="bar">

@@ -6,10 +6,10 @@
 <script>
   window.__obrMessages = [];
   window.addEventListener("message", function (e) {
-    if (e && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
+    if (e && e.isTrusted && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
   });
 </script>
-<script type="module" src="js/background.js"></script>
+<script type="module" src="js/background.js?v=1.0.2"></script>
 </head>
 <body></body>
 </html>

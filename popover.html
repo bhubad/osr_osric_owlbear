@@ -7,11 +7,11 @@
 <script>
   window.__obrMessages = [];
   window.addEventListener("message", function (e) {
-    if (e && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
+    if (e && e.isTrusted && e.data && e.data.id === "OBR_READY") window.__obrMessages.push({ data: e.data, origin: e.origin });
   });
 </script>
-<link rel="stylesheet" href="css/popover.css">
-<script type="module" src="js/popover.js"></script>
+<link rel="stylesheet" href="css/popover.css?v=1.0.2">
+<script type="module" src="js/popover.js?v=1.0.2"></script>
 </head>
 <body>
 <header>
