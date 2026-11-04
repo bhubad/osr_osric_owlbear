@@ -1,6 +1,6 @@
 {
   "name": "OSRIC Character Sheet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 1,
   "description": "View and edit OSRIC character sheets saved on tokens, laid out like FlacoAlto's 1st Edition / OSRIC spreadsheet.",
   "icon": "/osr_osric_owlbear/icon.svg",
