@@ -1,0 +1,51 @@
+:root {
+  --obr-primary: #bb99ff;
+  --obr-bg: #1e2231;
+  --obr-paper: #2b2f40;
+  --obr-text: #ffffff;
+  --obr-text2: rgba(255, 255, 255, 0.7);
+  --line: rgba(255, 255, 255, 0.16);
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --obr-primary: #6b47d6;
+  --obr-bg: #eceef4;
+  --obr-paper: #ffffff;
+  --obr-text: rgba(0, 0, 0, 0.87);
+  --obr-text2: rgba(0, 0, 0, 0.6);
+  --line: rgba(0, 0, 0, 0.14);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  padding: 12px 14px 14px;
+  background: transparent;
+  color: var(--obr-text);
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+h1 { font-size: 15px; margin: 0 0 4px; }
+h2 { font-size: 12px; margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--obr-text2); }
+.hint, .foot { margin: 0; color: var(--obr-text2); font-size: 12px; }
+.foot { margin-top: 14px; }
+a { color: var(--obr-primary); }
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 10px;
+  min-height: 28px;
+  cursor: pointer;
+}
+button:hover { background: rgba(127, 127, 127, 0.18); }
+button.primary { width: 100%; margin-top: 10px; background: var(--obr-primary); color: #111111; border-color: transparent; font-weight: 600; }
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.list li { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; }
+.list li.empty { border-style: dashed; color: var(--obr-text2); display: block; }
+.txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sub { font-size: 11px; color: var(--obr-text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+details { margin-top: 12px; }
+summary { cursor: pointer; color: var(--obr-text2); font-size: 12px; margin-bottom: 6px; }
